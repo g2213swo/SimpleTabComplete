@@ -3,6 +3,7 @@ package me.g2213swo.simpletabcomplete;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolManager;
 import com.comphenix.protocol.events.PacketContainer;
+import me.g2213swo.simpletabcomplete.hooks.Hooks;
 import me.g2213swo.simpletabcomplete.utils.ChatColorUtils;
 import me.g2213swo.simpletabcomplete.utils.NMSUtils;
 import org.bukkit.Bukkit;
@@ -82,8 +83,14 @@ public class ChatCompletionListener implements Listener {
 
         tab.add("<item>");
 
+        Hooks hooks = SimpleTabComplete.getInstance().getHooks("SuperVanish");
+
+        if (hooks == null) {
+            return tab;
+        }
+
         for (Player player : Bukkit.getOnlinePlayers()) {
-            if (!player.getUniqueId().equals(tabCompleter.getUniqueId())) {
+            if (hooks.isVanished(player) && !player.getUniqueId().equals(tabCompleter.getUniqueId())) {
                 tab.add(ChatColorUtils.stripColor("@" + player.getName()));
 //                        for (String nickname : XXX.getNicknames(player.getUniqueId())) {
 //                            tab.add(ChatColorUtils.stripColor("@" + nickname));
