@@ -1,0 +1,4 @@
+name: SimpleTabComplete
+version: '${version}'
+main: me.g2213swo.simpletabcomplete.SimpleTabComplete
+api-version: '1.20'
